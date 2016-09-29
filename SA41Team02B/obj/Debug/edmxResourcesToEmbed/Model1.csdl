@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BookingSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Availability">
+    <Key>
+      <PropertyRef Name="FacilityID" />
+      <PropertyRef Name="SlotTime" />
+      <PropertyRef Name="SlotDate" />
+    </Key>
+    <Property Name="FacilityID" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="FacilityName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SlotTime" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SlotDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="SlotAvailability" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Facility" Relationship="Self.FK__Availabil__Facil__1920BF5C" FromRole="Availability" ToRole="Facility" />
+  </EntityType>
+  <EntityType Name="Facility">
+    <Key>
+      <PropertyRef Name="FacilityID" />
+    </Key>
+    <Property Name="FacilityID" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="FacilityName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MaxOfPeople" Type="Int16" Nullable="false" />
+    <Property Name="Fees" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="Availabilities" Relationship="Self.FK__Availabil__Facil__1920BF5C" FromRole="Facility" ToRole="Availability" />
+    <NavigationProperty Name="Trans" Relationship="Self.FK__Trans__FacilityI__1CF15040" FromRole="Facility" ToRole="Trans" />
+  </EntityType>
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="MemberID" />
+    </Key>
+    <Property Name="MemberID" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MemberName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NRIC" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="ContactNumber" Type="Int64" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Trans" Relationship="Self.FK__Trans__MemberID__1BFD2C07" FromRole="Members" ToRole="Trans" />
+  </EntityType>
+  <EntityType Name="Tran">
+    <Key>
+      <PropertyRef Name="TransactionID" />
+    </Key>
+    <Property Name="TransactionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MemberID" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FacilityID" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="SlotDate" Type="DateTime" Precision="3" />
+    <Property Name="SlotTime" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateBooking" Type="DateTime" Precision="3" />
+    <Property Name="Action" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Facility" Relationship="Self.FK__Trans__FacilityI__1CF15040" FromRole="Trans" ToRole="Facility" />
+    <NavigationProperty Name="Member" Relationship="Self.FK__Trans__MemberID__1BFD2C07" FromRole="Trans" ToRole="Members" />
+  </EntityType>
+  <Association Name="FK__Availabil__Facil__1920BF5C">
+    <End Role="Facility" Type="Self.Facility" Multiplicity="1" />
+    <End Role="Availability" Type="Self.Availability" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Facility">
+        <PropertyRef Name="FacilityID" />
+      </Principal>
+      <Dependent Role="Availability">
+        <PropertyRef Name="FacilityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Trans__FacilityI__1CF15040">
+    <End Role="Facility" Type="Self.Facility" Multiplicity="1" />
+    <End Role="Trans" Type="Self.Tran" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Facility">
+        <PropertyRef Name="FacilityID" />
+      </Principal>
+      <Dependent Role="Trans">
+        <PropertyRef Name="FacilityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Trans__MemberID__1BFD2C07">
+    <End Role="Members" Type="Self.Member" Multiplicity="1" />
+    <End Role="Trans" Type="Self.Tran" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Members">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Trans">
+        <PropertyRef Name="MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BookingSystemEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Availabilities" EntityType="Self.Availability" />
+    <EntitySet Name="Facilities" EntityType="Self.Facility" />
+    <EntitySet Name="Members" EntityType="Self.Member" />
+    <EntitySet Name="Trans" EntityType="Self.Tran" />
+    <AssociationSet Name="FK__Availabil__Facil__1920BF5C" Association="Self.FK__Availabil__Facil__1920BF5C">
+      <End Role="Facility" EntitySet="Facilities" />
+      <End Role="Availability" EntitySet="Availabilities" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Trans__FacilityI__1CF15040" Association="Self.FK__Trans__FacilityI__1CF15040">
+      <End Role="Facility" EntitySet="Facilities" />
+      <End Role="Trans" EntitySet="Trans" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Trans__MemberID__1BFD2C07" Association="Self.FK__Trans__MemberID__1BFD2C07">
+      <End Role="Members" EntitySet="Members" />
+      <End Role="Trans" EntitySet="Trans" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

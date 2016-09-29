@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BookingSystemModelStoreContainer" CdmEntityContainer="BookingSystemEntities">
+    <EntitySetMapping Name="Availabilities">
+      <EntityTypeMapping TypeName="BookingSystemModel.Availability">
+        <MappingFragment StoreEntitySet="Availability">
+          <ScalarProperty Name="FacilityID" ColumnName="FacilityID" />
+          <ScalarProperty Name="FacilityName" ColumnName="FacilityName" />
+          <ScalarProperty Name="SlotTime" ColumnName="SlotTime" />
+          <ScalarProperty Name="SlotDate" ColumnName="SlotDate" />
+          <ScalarProperty Name="SlotAvailability" ColumnName="SlotAvailability" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Facilities">
+      <EntityTypeMapping TypeName="BookingSystemModel.Facility">
+        <MappingFragment StoreEntitySet="Facility">
+          <ScalarProperty Name="FacilityID" ColumnName="FacilityID" />
+          <ScalarProperty Name="FacilityName" ColumnName="FacilityName" />
+          <ScalarProperty Name="MaxOfPeople" ColumnName="MaxOfPeople" />
+          <ScalarProperty Name="Fees" ColumnName="Fees" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Members">
+      <EntityTypeMapping TypeName="BookingSystemModel.Member">
+        <MappingFragment StoreEntitySet="Members">
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+          <ScalarProperty Name="NRIC" ColumnName="NRIC" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Trans">
+      <EntityTypeMapping TypeName="BookingSystemModel.Tran">
+        <MappingFragment StoreEntitySet="Trans">
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="FacilityID" ColumnName="FacilityID" />
+          <ScalarProperty Name="SlotDate" ColumnName="SlotDate" />
+          <ScalarProperty Name="SlotTime" ColumnName="SlotTime" />
+          <ScalarProperty Name="DateBooking" ColumnName="DateBooking" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

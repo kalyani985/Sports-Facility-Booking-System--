@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9afd08fa324f4e82aa2255f1a21c5e62" Name="Diagram1">
+        <EntityTypeShape EntityType="BookingSystemModel.Availability" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingSystemModel.Facility" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingSystemModel.Member" Width="1.5" PointX="3.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingSystemModel.Tran" Width="1.5" PointX="6" PointY="2.625" IsExpanded="true" />
+        <AssociationConnector Association="BookingSystemModel.FK__Availabil__Facil__1920BF5C" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingSystemModel.FK__Trans__FacilityI__1CF15040" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingSystemModel.FK__Trans__MemberID__1BFD2C07" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

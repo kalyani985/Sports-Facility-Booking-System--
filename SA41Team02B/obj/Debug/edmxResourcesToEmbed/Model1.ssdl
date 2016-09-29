@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BookingSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Availability">
+    <Key>
+      <PropertyRef Name="FacilityID" />
+      <PropertyRef Name="SlotTime" />
+      <PropertyRef Name="SlotDate" />
+    </Key>
+    <Property Name="FacilityID" Type="nchar" MaxLength="4" Nullable="false" />
+    <Property Name="FacilityName" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="SlotTime" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="SlotDate" Type="datetime" Nullable="false" />
+    <Property Name="SlotAvailability" Type="char" MaxLength="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Facility">
+    <Key>
+      <PropertyRef Name="FacilityID" />
+    </Key>
+    <Property Name="FacilityID" Type="nchar" MaxLength="4" Nullable="false" />
+    <Property Name="FacilityName" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="MaxOfPeople" Type="smallint" Nullable="false" />
+    <Property Name="Fees" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Members">
+    <Key>
+      <PropertyRef Name="MemberID" />
+    </Key>
+    <Property Name="MemberID" Type="nvarchar" MaxLength="4" Nullable="false" />
+    <Property Name="MemberName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="NRIC" Type="nvarchar" MaxLength="9" Nullable="false" />
+    <Property Name="DateOfBirth" Type="datetime" Nullable="false" />
+    <Property Name="Gender" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="ContactNumber" Type="bigint" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Trans">
+    <Key>
+      <PropertyRef Name="TransactionID" />
+    </Key>
+    <Property Name="TransactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MemberID" Type="nvarchar" MaxLength="4" Nullable="false" />
+    <Property Name="FacilityID" Type="nchar" MaxLength="4" Nullable="false" />
+    <Property Name="SlotDate" Type="datetime" />
+    <Property Name="SlotTime" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="DateBooking" Type="datetime" />
+    <Property Name="Action" Type="nvarchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Availabil__Facil__1920BF5C">
+    <End Role="Facility" Type="Self.Facility" Multiplicity="1" />
+    <End Role="Availability" Type="Self.Availability" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Facility">
+        <PropertyRef Name="FacilityID" />
+      </Principal>
+      <Dependent Role="Availability">
+        <PropertyRef Name="FacilityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Trans__FacilityI__1CF15040">
+    <End Role="Facility" Type="Self.Facility" Multiplicity="1" />
+    <End Role="Trans" Type="Self.Trans" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Facility">
+        <PropertyRef Name="FacilityID" />
+      </Principal>
+      <Dependent Role="Trans">
+        <PropertyRef Name="FacilityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Trans__MemberID__1BFD2C07">
+    <End Role="Members" Type="Self.Members" Multiplicity="1" />
+    <End Role="Trans" Type="Self.Trans" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Members">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Trans">
+        <PropertyRef Name="MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BookingSystemModelStoreContainer">
+    <EntitySet Name="Availability" EntityType="Self.Availability" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Facility" EntityType="Self.Facility" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Members" EntityType="Self.Members" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Trans" EntityType="Self.Trans" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Availabil__Facil__1920BF5C" Association="Self.FK__Availabil__Facil__1920BF5C">
+      <End Role="Facility" EntitySet="Facility" />
+      <End Role="Availability" EntitySet="Availability" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Trans__FacilityI__1CF15040" Association="Self.FK__Trans__FacilityI__1CF15040">
+      <End Role="Facility" EntitySet="Facility" />
+      <End Role="Trans" EntitySet="Trans" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Trans__MemberID__1BFD2C07" Association="Self.FK__Trans__MemberID__1BFD2C07">
+      <End Role="Members" EntitySet="Members" />
+      <End Role="Trans" EntitySet="Trans" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
